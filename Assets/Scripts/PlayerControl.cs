@@ -14,6 +14,13 @@ public class PlayerControl : MonoBehaviour
 
     private int score;
 
+    private ContactPoint2D lastContactPoint;
+
+    public ContactPoint2D LastContactPoint
+    {
+        get { return lastContactPoint; }
+    }
+
     private void Start()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
@@ -62,5 +69,13 @@ public class PlayerControl : MonoBehaviour
     public int Score
     {
         get { return score; }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name.Equals("Ball"))
+        {
+            lastContactPoint = collision.GetContact(0);
+        }
     }
 }
