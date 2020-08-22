@@ -124,7 +124,8 @@ public class GameManager : MonoBehaviour
                 "Ball momentum = " + ballMomentum + "\n" +
                 "Ball friction = " + ballFriction + "\n" +
                 "Last impulse from player 1 = (" + impulsePlayer1X + ", " + impulsePlayer1Y + ")\n" +
-                "Last impulse from player 2 = (" + impulsePlayer2X + ", " + impulsePlayer2Y + ")\n";
+                "Last impulse from player 2 = (" + impulsePlayer2X + ", " + impulsePlayer2Y + ")\n" +
+                "Brian Wijaya\n";
 
             GUIStyle guiStyle = new GUIStyle(GUI.skin.textArea);
             guiStyle.alignment = TextAnchor.UpperCenter;
