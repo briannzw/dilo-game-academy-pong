@@ -21,7 +21,7 @@ public class Trajectory : MonoBehaviour
         bool drawBallAtCollision = false;
         Vector2 offsetHitPoint = new Vector2();
 
-        RaycastHit2D[] circleCast2DArray = Physics2D.CircleCastAll(ballRigidbody.position, ballCollider.radius, ballRigidbody.velocity.normalized);
+        RaycastHit2D[] circleCast2DArray = Physics2D.CircleCastAll(ballRigidbody.position, ballCollider.radius, ballRigidbody.velocity.normalized, Mathf.Infinity, ~LayerMask.GetMask("Ball"));
 
         foreach (RaycastHit2D circleCastHit2D in circleCast2DArray)
         {

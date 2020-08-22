@@ -78,4 +78,24 @@ public class PlayerControl : MonoBehaviour
             lastContactPoint = collision.GetContact(0);
         }
     }
+
+    public void PowerUp(Vector3 scaleSize, float time)
+    {
+        StartCoroutine(ScaleUp(scaleSize, time));
+    }
+
+    IEnumerator ScaleUp(Vector3 scaleSize, float time)
+    {
+        transform.localScale += scaleSize;
+
+        yield return new WaitForSeconds(time);
+
+        transform.localScale -= scaleSize;
+    }
+
+    public void ResetScale()
+    {
+        StopAllCoroutines();
+        transform.localScale = Vector3.one;
+    }
 }

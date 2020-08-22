@@ -19,12 +19,52 @@ public class GameManager : MonoBehaviour
     private bool isDebugWindowShown = false;
     public Trajectory trajectory;
 
+    public FireBall fireBall;
+    public PowerUp powerUp;
+
     private void Start()
     {
         player1Rigidbody = player1.GetComponent<Rigidbody2D>();
         player2Rigidbody = player2.GetComponent<Rigidbody2D>();
         ballRigidbody = ball.GetComponent<Rigidbody2D>();
         ballCollider = ball.GetComponent<CircleCollider2D>();
+
+        RestartFireball();
+        RestartPowerUp();
+    }
+
+    public void RestartFireball()
+    {
+        CancelInvoke("SpawnFireball");
+        fireBall.gameObject.SetActive(false);
+        Invoke("SpawnFireball", Random.Range(3, 7));
+    }
+
+    public void RestartPowerUp()
+    {
+        CancelInvoke("SpawnPowerUp");
+        powerUp.gameObject.SetActive(false);
+        Invoke("SpawnPowerUp", Random.Range(2, 5));
+    }
+
+    private void SpawnFireball()
+    {
+        fireBall.transform.position = Vector2.zero;
+        fireBall.gameObject.SetActive(true);
+        fireBall.PushBall();
+    }
+
+    private void SpawnPowerUp()
+    {
+        powerUp.transform.position = Vector2.zero;
+        powerUp.gameObject.SetActive(true);
+        powerUp.PushBall();
+    }
+
+    public void ResetPlayerScale()
+    {
+        player1.ResetScale();
+        player2.ResetScale();
     }
 
     private void OnGUI()
@@ -37,6 +77,8 @@ public class GameManager : MonoBehaviour
             player1.ResetScore();
             player2.ResetScore();
 
+            RestartFireball();
+            RestartPowerUp();
             ball.SendMessage("RestartGame", .5f, SendMessageOptions.RequireReceiver);
         }
 
@@ -44,12 +86,18 @@ public class GameManager : MonoBehaviour
         {
             GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 10, 2000, 1000), "PLAYER ONE WINS");
 
+            CancelInvoke("SpawnFireball");
+            CancelInvoke("SpawnPowerUp");
+            fireBall.gameObject.SetActive(false);
             ball.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         }
         else if (player2.Score == maxScore)
         {
-            GUI.Label(new Rect(Screen.width / 2 - 150, Screen.height / 2 - 10, 2000, 1000), "PLAYER TWO WINS");
+            GUI.Label(new Rect(Screen.width / 2 + 30, Screen.height / 2 - 10, 2000, 1000), "PLAYER TWO WINS");
 
+            CancelInvoke("SpawnFireball");
+            CancelInvoke("SpawnPowerUp");
+            fireBall.gameObject.SetActive(false);
             ball.SendMessage("ResetBall", null, SendMessageOptions.RequireReceiver);
         }
 

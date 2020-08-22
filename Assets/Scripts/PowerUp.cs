@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallControl : MonoBehaviour
+public class PowerUp : MonoBehaviour
 {
     private Rigidbody2D rigidBody2D;
 
     public float xInitialForce;
     public float yInitialForce;
 
-    private Vector2 trajectoryOrigin;
-
     public GameManager gameManager;
+    public Vector3 scaleUp;
+    public float time;
 
-    void ResetBall()
-    {
-        transform.position = Vector2.zero;
-        rigidBody2D.velocity = Vector2.zero;
-        gameManager.ResetPlayerScale();
-    }
+    public BallControl ball;
 
-    void PushBall()
+    public void PushBall()
     {
         float yRandomInitialForce = Random.Range(-yInitialForce, yInitialForce);
         float randomDirection = Random.Range(0, 2);
@@ -39,28 +34,17 @@ public class BallControl : MonoBehaviour
         }
     }
 
-    void RestartGame()
-    {
-        ResetBall();
-        CancelInvoke("PushBall");
-        Invoke("PushBall", 2);
-    }
-
-    private void Start()
+    private void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-        RestartGame();
-
-        trajectoryOrigin = transform.position;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        trajectoryOrigin = transform.position;
-    }
-
-    public Vector2 TrajectoryOrigin
-    {
-        get { return trajectoryOrigin; }
+        if (collision.gameObject.GetComponent<PlayerControl>())
+        {
+            collision.gameObject.GetComponent<PlayerControl>().PowerUp(scaleUp, time);
+            gameManager.RestartPowerUp();
+        }
     }
 }

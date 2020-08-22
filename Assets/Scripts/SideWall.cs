@@ -11,12 +11,24 @@ public class SideWall : MonoBehaviour
     {
         if(collision.name == "Ball")
         {
+            gameManager.RestartFireball();
+            gameManager.RestartPowerUp();
             player.IncrementScore();
 
             if (player.Score < gameManager.maxScore)
             {
                 collision.gameObject.SendMessage("RestartGame", 2f, SendMessageOptions.RequireReceiver);
             }
+        }
+        if(collision.name == "FireBall")
+        {
+            gameManager.RestartFireball();
+            collision.gameObject.SetActive(false);
+        }
+        if(collision.name == "PowerUp")
+        {
+            gameManager.RestartPowerUp();
+            collision.gameObject.SetActive(false);
         }
     }
 }

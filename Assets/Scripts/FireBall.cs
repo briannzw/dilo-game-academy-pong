@@ -2,25 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallControl : MonoBehaviour
+public class FireBall : MonoBehaviour
 {
+    public BallControl ball;
+    public PlayerControl player1;
+    public PlayerControl player2;
+
     private Rigidbody2D rigidBody2D;
 
     public float xInitialForce;
     public float yInitialForce;
 
-    private Vector2 trajectoryOrigin;
-
     public GameManager gameManager;
 
-    void ResetBall()
-    {
-        transform.position = Vector2.zero;
-        rigidBody2D.velocity = Vector2.zero;
-        gameManager.ResetPlayerScale();
-    }
-
-    void PushBall()
+    public void PushBall()
     {
         float yRandomInitialForce = Random.Range(-yInitialForce, yInitialForce);
         float randomDirection = Random.Range(0, 2);
@@ -39,28 +34,27 @@ public class BallControl : MonoBehaviour
         }
     }
 
-    void RestartGame()
-    {
-        ResetBall();
-        CancelInvoke("PushBall");
-        Invoke("PushBall", 2);
-    }
-
-    private void Start()
+    private void Awake()
     {
         rigidBody2D = GetComponent<Rigidbody2D>();
-        RestartGame();
-
-        trajectoryOrigin = transform.position;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        trajectoryOrigin = transform.position;
-    }
+        if (collision.gameObject.GetComponent<PlayerControl>())
+        {
+            if(collision.transform.name == "Player 1")
+            {
+                player2.IncrementScore();
+            }
+            else if(collision.transform.name == "Player 2")
+            {
+                player1.IncrementScore();
+            }
 
-    public Vector2 TrajectoryOrigin
-    {
-        get { return trajectoryOrigin; }
+            gameManager.RestartFireball();
+            gameManager.RestartPowerUp();
+            ball.SendMessage("RestartGame", .5f, SendMessageOptions.RequireReceiver);
+        }
     }
 }
