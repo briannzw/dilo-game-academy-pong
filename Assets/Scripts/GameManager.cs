@@ -125,11 +125,11 @@ public class GameManager : MonoBehaviour
                 "Ball friction = " + ballFriction + "\n" +
                 "Last impulse from player 1 = (" + impulsePlayer1X + ", " + impulsePlayer1Y + ")\n" +
                 "Last impulse from player 2 = (" + impulsePlayer2X + ", " + impulsePlayer2Y + ")\n" +
-                "Brian Wijaya\n";
+                "Brian Wijaya";
 
             GUIStyle guiStyle = new GUIStyle(GUI.skin.textArea);
             guiStyle.alignment = TextAnchor.UpperCenter;
-            GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 110), debugText, guiStyle);
+            GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 130), debugText, guiStyle);
 
             GUI.backgroundColor = oldColor;
         }
