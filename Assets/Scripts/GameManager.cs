@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerControl player2;
     private Rigidbody2D player2Rigidbody;
+    private EnemyAI player2AI;
 
     public BallControl ball;
     private Rigidbody2D ballRigidbody;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         player2Rigidbody = player2.GetComponent<Rigidbody2D>();
         ballRigidbody = ball.GetComponent<Rigidbody2D>();
         ballCollider = ball.GetComponent<CircleCollider2D>();
+        player2AI = player2.GetComponent<EnemyAI>();
 
         RestartFireball();
         RestartPowerUp();
@@ -125,11 +127,12 @@ public class GameManager : MonoBehaviour
                 "Ball friction = " + ballFriction + "\n" +
                 "Last impulse from player 1 = (" + impulsePlayer1X + ", " + impulsePlayer1Y + ")\n" +
                 "Last impulse from player 2 = (" + impulsePlayer2X + ", " + impulsePlayer2Y + ")\n" +
-                "Brian Wijaya";
+                "To turn on enemy AI, press Z button. For better AI press X button\n" +
+                "To turn on player 2 control, press C button";
 
             GUIStyle guiStyle = new GUIStyle(GUI.skin.textArea);
             guiStyle.alignment = TextAnchor.UpperCenter;
-            GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 130), debugText, guiStyle);
+            GUI.TextArea(new Rect(Screen.width / 2 - 200, Screen.height - 200, 400, 150), debugText, guiStyle);
 
             GUI.backgroundColor = oldColor;
         }
@@ -138,6 +141,45 @@ public class GameManager : MonoBehaviour
         {
             isDebugWindowShown = !isDebugWindowShown;
             trajectory.enabled = !trajectory.enabled;
+        }
+    }
+
+    public Vector2 offsetPoint;
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            player2.enabled = false;
+            player2Rigidbody.velocity = Vector2.zero;
+            player2AI.enabled = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            Debug.Log("Advanced AI hanya dapat dijalankan ketika Trajectory aktif.");
+            player2.enabled = false;
+            player2Rigidbody.velocity = Vector2.zero;
+            player2AI.enabled = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            player2.enabled = true;
+            player2Rigidbody.velocity = Vector2.zero;
+            player2AI.enabled = false;
+        }
+
+        if(!player2.enabled && !player2AI.enabled) AdvanceAI();
+    }
+
+    private void AdvanceAI()
+    {
+        if(ballRigidbody.velocity.x > 0)
+        {
+            float yPoint = Mathf.MoveTowards(player2.transform.position.y, offsetPoint.y, player2.speed * Time.deltaTime);
+            player2.transform.position = new Vector2(player2.transform.position.x, yPoint);
+
+            if (yPoint > player2.yBoundary) player2.transform.position = new Vector2(player2.transform.position.x, player2.yBoundary);
+            else if (yPoint < -player2.yBoundary) player2.transform.position = new Vector2(player2.transform.position.x, -player2.yBoundary);
         }
     }
 }

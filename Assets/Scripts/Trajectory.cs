@@ -9,6 +9,7 @@ public class Trajectory : MonoBehaviour
     Rigidbody2D ballRigidbody;
 
     public GameObject ballAtCollision;
+    public GameManager gameManager;
 
     private void Start()
     {
@@ -42,8 +43,14 @@ public class Trajectory : MonoBehaviour
                     if(outDot > -1f && outDot < 1f)
                     {
                         DottedLine.DottedLine.Instance.DrawDottedLine(offsetHitPoint, offsetHitPoint + outVector * 10f);
+                        float distance = Vector2.Distance(offsetHitPoint, gameManager.player2.transform.position);
+                        gameManager.offsetPoint = offsetHitPoint + outVector * distance;
                         drawBallAtCollision = true;
                     }
+                }
+                else
+                {
+                    gameManager.offsetPoint = offsetHitPoint;
                 }
                 break;
             }

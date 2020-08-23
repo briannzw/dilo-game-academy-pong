@@ -432,6 +432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 273021074}
   ballAtCollision: {fileID: 1179106010}
+  gameManager: {fileID: 1096449197}
 --- !u!114 &295901316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +731,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 33.6, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &765698821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3685994464119596550, guid: 42bb1815ef0fc274fb69d505ab89f65c, type: 3}
+  m_PrefabInstance: {fileID: 1999983496}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &765698826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765698821}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6441734767a4d2b4798d85b974697daf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ball: {fileID: 273021074}
+  speed: 10
+  yBoundary: 9
 --- !u!1 &1096449196
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +787,7 @@ MonoBehaviour:
   trajectory: {fileID: 295901315}
   fireBall: {fileID: 120928103}
   powerUp: {fileID: 1963576289}
+  offsetPoint: {x: 0, y: 0}
 --- !u!4 &1096449198
 Transform:
   m_ObjectHideFlags: 0
@@ -1167,6 +1189,10 @@ PrefabInstance:
       propertyPath: downButton
       value: 108
       objectReference: {fileID: 0}
+    - target: {fileID: 3525069486669621577, guid: 42bb1815ef0fc274fb69d505ab89f65c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3685994464119596550, guid: 42bb1815ef0fc274fb69d505ab89f65c, type: 3}
       propertyPath: m_Name
       value: Player 2
@@ -1178,7 +1204,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3525069486669621577, guid: 42bb1815ef0fc274fb69d505ab89f65c, type: 3}
   m_PrefabInstance: {fileID: 1999983496}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 765698821}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b051c79051bc7bb4ca8e0a7977c21556, type: 3}
