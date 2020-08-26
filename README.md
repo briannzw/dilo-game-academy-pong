@@ -10,6 +10,7 @@
 
 ## General info
 Sebuah repository untuk assignment projek Pong dari [DILo Game Academy](https://academy.dilo.id) yang dibuat menggunakan Unity Engine.
+Dikembangkan oleh Brian Wijaya.
 
 ## Screenshots
 ![alt text](https://github.com/briannzw/github-pong/blob/master/Screenshots/Pong-1.png "Screenshot 1")
