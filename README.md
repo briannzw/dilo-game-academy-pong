@@ -12,7 +12,8 @@
 Sebuah repository untuk assignment projek Pong dari [DILo Game Academy](https://academy.dilo.id) yang dibuat menggunakan Unity Engine.
 
 ## Screenshots
-
+![alt text](https://github.com/briannzw/github-pong/blob/master/Screenshots/Pong-1.png "Screenshot 1")
+![alt text](https://github.com/briannzw/github-pong/blob/master/Screenshots/Pong-2.png "Screenshot 2")
 	
 ## Technologies
 Project is created with:
